@@ -5,13 +5,28 @@ import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import react from "@astrojs/react";
+
+import tailwindcss from "@tailwindcss/vite";
+
+import basicSsl from "@vitejs/plugin-basic-ssl";
+
 // https://astro.build/config
+
 export default defineConfig({
   site: "https://example.com",
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), react()],
+
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
     },
   }),
+
+  vite: {
+    plugins: [tailwindcss(), basicSsl()],
+    server: {
+      https: true,
+    }
+  }
 });
